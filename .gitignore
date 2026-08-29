@@ -1,0 +1,39 @@
+# --- Data & manuscript artifacts (never commit) ---
+data/
+outputs/
+*.docx
+*.pdf
+*.rds
+*.h5
+*.h5ad
+*.loom
+*.mtx
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.tiff
+*.tif
+*.png
+*.svg
+
+# --- Backups & scratch ---
+*.bak
+*.bak_*
+tmp/
+Rplots.pdf
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# --- R ---
+.Rhistory
+.RData
+.Rproj.user/
+
+# --- OS ---
+.DS_Store

@@ -1,0 +1,7 @@
+# Copy this file to `.Renviron` (in the repo root, or your home directory).
+# R reads .Renviron automatically at startup, so the scripts will pick these up
+# via Sys.getenv(). Edit the values to point at your own locations.
+
+PROJECT_ROOT=/absolute/path/to/this/repository
+EXTERNAL_DATA=/absolute/path/to/your/data
+PYTHON_BIN=/absolute/path/to/python   # a Python with gseapy / scanpy installed
