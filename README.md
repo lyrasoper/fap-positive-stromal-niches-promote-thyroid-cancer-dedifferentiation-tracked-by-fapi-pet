@@ -92,7 +92,7 @@ numbered entry points.
 ### The Figure 3 render pipeline
 
 The submitted Figure 3 is produced by one entry point,
-`13_render_fig3_final.py`, which composes four modules:
+`13_render_fig3_final.py`, which composes five modules:
 
 ```
 build_fig3_panelA_paired.py   panel A, paired sender -> receiver nomination
