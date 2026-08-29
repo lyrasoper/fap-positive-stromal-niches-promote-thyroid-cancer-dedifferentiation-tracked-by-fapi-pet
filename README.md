@@ -16,10 +16,11 @@ reproduction package for the paper.
 
 - Human single-cell atlas analyses and figure builders (Figure 1)
 - Visium spatial-transcriptomics analyses and figure builders (Figure 2)
-- Ligand–receptor nomination, deconvolution/niche analyses, and the ITGA2 axis
-  (Figure 3)
+- Ligand–receptor nomination, deconvolution/niche analyses, the ITGA2 axis, and
+  the full render of the submitted figure (Figure 3)
 - The multi-omic supplementary analyses that accompany Figure 4
   (Supplementary Figs. S14 and S15)
+- The ssGSEA recomputation and panel builder for Figure 5I
 - The mouse source-characteristics and bulk-validation supplement
   (Supplementary Fig. S21)
 
@@ -28,7 +29,7 @@ reproduction package for the paper.
 - Wet-lab quantification: immunoblot, IHC, multiplex immunofluorescence,
   in vivo mouse pharmacology (Figure 4 main panels, parts of Figure 2)
 - The main single-cell panels of the *Braf*-driven mouse progression model
-  (Figure 5)
+  (Figure 5A–H)
 - Small-animal and clinical PET/CT analyses (Figures 6 and 7)
 
 **What is read rather than re-run.** Several upstream analyses were run outside
@@ -48,7 +49,7 @@ all figure rendering.
 | Figure 2 — spatial transcriptomics | `scripts/fig2_spatial/` (spatial panels only) |
 | Figure 3 — spatial multi-omic nomination of ITGA2 | `scripts/fig3_spatial_mechanism/` |
 | Figure 4 — host *Fap* loss and α2β1–FAK–ERK signaling | main panels not included; supplementary multi-omics in `scripts/fig4_fap_multiomics/` |
-| Figure 5 — *Braf*-driven mouse progression | main panels not included; Supplementary Fig. S21 in `scripts/fig5_mouse_braf/` |
+| Figure 5 — *Braf*-driven mouse progression | panel I and Supplementary Fig. S21 in `scripts/fig5_mouse_braf/`; panels A–H not included |
 | Figure 6 — longitudinal [18F]FAPI-42 PET in mice | not included |
 | Figure 7 — paired [18F]FAPI-42 / [18F]FDG PET/CT | not included |
 
@@ -76,18 +77,54 @@ scripts/
 ├── fig1_human_atlas/         Figure 1 — human scRNA atlas + bulk TCGA/GEO
 ├── fig2_spatial/             Figure 2 — Visium spatial transcriptomics
 ├── fig3_spatial_mechanism/   Figure 3 — LIANA/NicheNet nomination, RCTD niche,
-│                             ITGA2 axis, PAX8 distance decay
+│                             ITGA2 axis, PAX8 distance decay, final render
 ├── fig4_fap_multiomics/      Supplementary Figs. S14, S15 — RNA/DIA proteomics
 │                             from Fap-deficient vs wild-type hosts
-└── fig5_mouse_braf/          Supplementary Fig. S21 — mouse single-cell source
+└── fig5_mouse_braf/          Figure 5I ssGSEA recomputation and panel, plus
+                              Supplementary Fig. S21 — mouse single-cell source
                               characteristics and bulk-cohort validation
 ```
 
-Within each folder, scripts are numbered in the order they are run.
-`build_fig3_panelA_paired.py` is a helper module imported by
-`02_ligand_receptor_nomination.py`, not a standalone step.
+Within each folder, numbered scripts run in order. Unnumbered `.py` files in
+`fig3_spatial_mechanism/` are **modules, not steps** — they are imported by the
+numbered entry points.
+
+### The Figure 3 render pipeline
+
+The submitted Figure 3 is produced by one entry point,
+`13_render_fig3_final.py`, which composes four modules:
+
+```
+build_fig3_panelA_paired.py   panel A, paired sender -> receiver nomination
+fig3_full_render.py           full-figure layout and panels B-H
+fig3_moderate_variant.py      layout variant used by the beautify passes
+fig1_fig3_revision_helpers.py loaded for its matplotlib rcParams side effects
+fig3_beautify.py              the eight post-processing passes
+        |
+13_render_fig3_final.py       monkeypatches panel A to color couplings by
+                              receiver and italicize the non-integrin receivers
+                              (CD44, SDC1, DDR1), then renders
+```
+
+Run `13_render_fig3_final.py`; the earlier numbered scripts in that folder
+produce the upstream tables it consumes.
 
 ---
+
+## Figure panels rebuilt after this code was written
+
+Two panels were rebuilt during revision by scripts that are **not** in this
+repository, for different reasons:
+
+- **Figure 1H.** The submitted panel and the archived source data disagree on
+  which Hallmark gene sets are shown. The preranked GSEA that produces the
+  source-supported list is here (`fig1_human_atlas/02_gsea_fig1h_prerank.py`);
+  the later correction was a raster patch of the finished figure with the values
+  hard-coded, which is a production step rather than analysis code.
+- **Figure 4C–E.** A re-derivation from the raw RNA and DIA matrices exists but
+  reports Hedges *g* with per-sample points, whereas the submitted legend
+  describes group-mean standardized module differences. It was therefore not
+  merged; the panels in the paper come from the earlier build.
 
 ## Data
 
