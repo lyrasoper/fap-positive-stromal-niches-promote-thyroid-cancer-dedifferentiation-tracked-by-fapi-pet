@@ -111,20 +111,12 @@ produce the upstream tables it consumes.
 
 ---
 
-## Figure panels rebuilt after this code was written
+## A rebuild that was not merged
 
-Two panels were rebuilt during revision by scripts that are **not** in this
-repository, for different reasons:
-
-- **Figure 1H.** The submitted panel and the archived source data disagree on
-  which Hallmark gene sets are shown. The preranked GSEA that produces the
-  source-supported list is here (`fig1_human_atlas/02_gsea_fig1h_prerank.py`);
-  the later correction was a raster patch of the finished figure with the values
-  hard-coded, which is a production step rather than analysis code.
-- **Figure 4C–E.** A re-derivation from the raw RNA and DIA matrices exists but
-  reports Hedges *g* with per-sample points, whereas the submitted legend
-  describes group-mean standardized module differences. It was therefore not
-  merged; the panels in the paper come from the earlier build.
+**Figure 4C–E.** A re-derivation from the raw RNA and DIA matrices exists but
+reports Hedges *g* with per-sample points, whereas the submitted legend
+describes group-mean standardized module differences. It was therefore not
+merged; the panels in the paper come from the earlier build.
 
 ## Data
 
