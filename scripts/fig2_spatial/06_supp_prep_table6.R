@@ -108,8 +108,6 @@ umap_df <- data.frame(
   seurat_clusters = md$seurat_clusters,
   TDS_score = md$TDS_score,
   FAP = md$FAP,
-  Senescence1 = md$Senescence1,
-  HGF_MET1 = md$HGF_MET1,
   nCount_Spatial = md$nCount_Spatial,
   nFeature_Spatial = md$nFeature_Spatial,
   stringsAsFactors = FALSE
@@ -135,8 +133,6 @@ section_summary <- md %>%
     median_TDS_score = median(TDS_score, na.rm = TRUE),
     mean_FAP = mean(FAP, na.rm = TRUE),
     FAP_positive_fraction = mean(FAP > 0, na.rm = TRUE),
-    median_Senescence1 = median(Senescence1, na.rm = TRUE),
-    median_HGF_MET1 = median(HGF_MET1, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   mutate(
@@ -217,9 +213,7 @@ section_metric_long <- section_summary %>%
     median_nFeature_Spatial,
     median_TDS_score,
     mean_FAP,
-    FAP_positive_fraction,
-    median_Senescence1,
-    median_HGF_MET1
+    FAP_positive_fraction
   ) %>%
   mutate(sample_id = factor(sample_id, levels = sample_order_by_tds)) %>%
   pivot_longer(-sample_id, names_to = "metric", values_to = "value") %>%
@@ -233,9 +227,7 @@ metric_labels <- c(
   "median_nFeature_Spatial" = "Median genes",
   "median_TDS_score" = "Median TDS score",
   "mean_FAP" = "Mean FAP",
-  "FAP_positive_fraction" = "FAP-positive fraction",
-  "median_Senescence1" = "Median senescence score",
-  "median_HGF_MET1" = "Median HGF-MET score"
+  "FAP_positive_fraction" = "FAP-positive fraction"
 )
 
 dot_features <- list(

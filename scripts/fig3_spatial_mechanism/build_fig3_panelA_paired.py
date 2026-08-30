@@ -1,6 +1,6 @@
 # Cancer Research submission - figure code release
 # Builds: Figure 3A (paired sender-receiver nomination). Helper module
-#          imported by 02_ligand_receptor_nomination.py.
+#          imported by 13_render_fig3_final.py.
 # Note: some output paths and inline comments below still use the figure
 #       numbering of an earlier manuscript version (fig7_* = current Fig. 3,
 #       fig8_* = current Fig. 4). See README.md.
