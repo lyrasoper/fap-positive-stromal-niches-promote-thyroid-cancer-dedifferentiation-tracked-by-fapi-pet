@@ -9,8 +9,12 @@
 #   PROJECT_ROOT   this repository's working directory (where outputs are written)
 #   EXTERNAL_DATA  where the input data objects live (Seurat / AnnData / Visium
 #                  objects, count matrices, source tables — not included in the repo)
+#   BULK_OMICS_DATA workspace holding the bulk RNA / DIA-proteomic matrices, the
+#                  reference/ files (MSigDB, NicheNet priors, Xena TCGA-THCA), and
+#                  the intermediates fig4_bulk_omics/ writes and fig4_bulk_figures/ reads
 #   PYTHON_BIN     a Python interpreter with gseapy / scanpy installed
 
 PROJECT_ROOT: /absolute/path/to/this/repository
 EXTERNAL_DATA: /absolute/path/to/your/data
+BULK_OMICS_DATA: /absolute/path/to/bulk_omics_workspace
 PYTHON_BIN: /absolute/path/to/python

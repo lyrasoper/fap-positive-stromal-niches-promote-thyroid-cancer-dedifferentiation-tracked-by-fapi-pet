@@ -9,8 +9,9 @@ Guo, Ye, Pang, Xie, *et al.* (Sun Yat-sen University).
 ## Scope — read this first
 
 This repository contains **the bioinformatics figure code only**, and it covers
-**Figures 1–3 and a subset of the supplementary figures**. It is not a complete
-reproduction package for the paper.
+**Figures 1–3, the bioinformatics panels of Figure 4, Figure 5I, and a subset of
+the supplementary figures**. It is not a complete reproduction package for the
+paper.
 
 **What is here**
 
@@ -20,6 +21,9 @@ reproduction package for the paper.
   the full render of the submitted figure (Figure 3)
 - The multi-omic supplementary analyses that accompany Figure 4
   (Supplementary Figs. S14 and S15)
+- The bulk RNA-seq and DIA-proteomic analyses of tumors from Fap-deficient
+  versus wild-type hosts, and the builders for the bioinformatics panels they
+  support (Figure 4C-E and Supplementary Figs. S16-S20)
 - The ssGSEA recomputation and panel builder for Figure 5I
 - The mouse source-characteristics and bulk-validation supplement
   (Supplementary Fig. S21)
@@ -34,10 +38,10 @@ reproduction package for the paper.
 
 **What is read rather than re-run.** Several upstream analyses were run outside
 this repository and their result tables are read as inputs: LIANA cell–cell
-communication aggregation, RCTD deconvolution, Space Ranger and Cell Ranger
-processing, and the bulk RNA/DIA-proteomic differential testing. The scripts here
-run NicheNet, decoupleR ULM scoring, GSEA, the per-cell/per-spot statistics, and
-all figure rendering.
+communication aggregation, RCTD deconvolution, and Space Ranger / Cell Ranger
+processing. The scripts here run the bulk RNA/DIA-proteomic differential testing,
+NicheNet, decoupleR ULM and PROGENy scoring, NNLS deconvolution, MOFA2, GSEA, the
+per-cell/per-spot statistics, and all figure rendering.
 
 ---
 
@@ -48,7 +52,7 @@ all figure rendering.
 | Figure 1 — human single-cell atlas | `scripts/fig1_human_atlas/` |
 | Figure 2 — spatial transcriptomics | `scripts/fig2_spatial/` (spatial panels only) |
 | Figure 3 — spatial multi-omic nomination of ITGA2 | `scripts/fig3_spatial_mechanism/` |
-| Figure 4 — host *Fap* loss and α2β1–FAK–ERK signaling | main panels not included; supplementary multi-omics in `scripts/fig4_fap_multiomics/` |
+| Figure 4 — host *Fap* loss and α2β1–FAK–ERK signaling | bioinformatics panels C–E in `scripts/fig4_bulk_omics/` + `scripts/fig4_bulk_figures/`; supplementary multi-omics in `scripts/fig4_fap_multiomics/`; wet-lab panels not included |
 | Figure 5 — *Braf*-driven mouse progression | panel I and Supplementary Fig. S21 in `scripts/fig5_mouse_braf/`; panels A–H not included |
 | Figure 6 — longitudinal [18F]FAPI-42 PET in mice | not included |
 | Figure 7 — paired [18F]FAPI-42 / [18F]FDG PET/CT | not included |
@@ -80,6 +84,13 @@ scripts/
 │                             ITGA2 axis, PAX8 distance decay, final render
 ├── fig4_fap_multiomics/      Supplementary Figs. S14, S15 — RNA/DIA proteomics
 │                             from Fap-deficient vs wild-type hosts
+├── fig4_bulk_omics/          Figure 4C–E and Supplementary Figs. S16–S20 —
+│                             differential testing, PROGENy, Hallmark and
+│                             dedifferentiation axes, NABA/matrisome, NNLS CAF
+│                             deconvolution, MOFA2, NicheNet, BRAF–RAS scoring,
+│                             and Factor-1 projection onto TCGA-THCA / GSE76039
+├── fig4_bulk_figures/        the panel builders that render `fig4_bulk_omics/`
+│                             results
 └── fig5_mouse_braf/          Figure 5I ssGSEA recomputation and panel, plus
                               Supplementary Fig. S21 — mouse single-cell source
                               characteristics and bulk-cohort validation
@@ -129,6 +140,13 @@ and the bulk-mTC helper module `integrate_thyroid_markers.py`, both under
 `EXTERNAL_DATA`. Scripts that need them fail with an explicit message naming the
 missing path.
 
+The `fig4_bulk_omics/` scripts additionally expect a `reference/` directory under
+`BULK_OMICS_DATA` holding third-party files that are **not redistributed here**:
+MSigDB hallmark collections (`h.all.*.Hs.symbols.gmt`, `mh.all.*.Mm.symbols.gmt`),
+the NicheNet v2 mouse priors (Zenodo 7074291), the UCSC Xena TCGA-THCA clinical,
+survival and Illumina 450K methylation tables, and the 71-gene BRAF–RAS score
+panel published with TCGA-THCA.
+
 ---
 
 ## Requirements
@@ -154,6 +172,7 @@ fall-backs:
 |---|---|
 | `PROJECT_ROOT` | this repository's working directory (outputs are written here) |
 | `EXTERNAL_DATA` | where the input objects and upstream result tables live |
+| `BULK_OMICS_DATA` | workspace holding the bulk RNA / DIA-proteomic matrices, the `reference/` files listed below, and the intermediate outputs `fig4_bulk_omics/` writes and `fig4_bulk_figures/` reads |
 | `PYTHON_BIN` | a Python with `gseapy` / `scanpy` installed (used by the GSEA step) |
 
 For R, copy `.Renviron.example` to `.Renviron`; R reads it at startup. For Python

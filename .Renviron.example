@@ -4,4 +4,5 @@
 
 PROJECT_ROOT=/absolute/path/to/this/repository
 EXTERNAL_DATA=/absolute/path/to/your/data
+BULK_OMICS_DATA=/absolute/path/to/bulk_omics_workspace   # bulk RNA / DIA matrices + reference/
 PYTHON_BIN=/absolute/path/to/python   # a Python with gseapy / scanpy installed
